@@ -3,22 +3,25 @@
 set -e
 
 COUCHAPP_VERSION=v2.4.0
-COUCHAPP_TAR_PATH=/app/setup/npm-registry-couchapp-"${COUCHAPP_VERSION}".tar.gz
-COUCHAPP_TAR_REMOTE=https://github.com/npm/npm-registry-couchapp/archive/"${COUCHAPP_VERSION}".tar.gz
+COUCHAPP_GIT=https://github.com/npm/npm-registry-couchapp.git
 COUCHAPP_LOCAL_PATH=/opt/couchapp
 
-mkdir /var/run/couchdb
-
-if [ -f "${COUCHAPP_TAR_PATH}" ]; then
-  tar -zvxf "${COUCHAPP_TAR_PATH}" --strip=1 -C "${COUCHAPP_LOCAL_PATH}"
-else
-  wget "${COUCHAPP_TAR_REMOTE}" -O - | \
-    tar -zvxf - --strip=1 -C  "${COUCHAPP_LOCAL_PATH}"
-fi
+git clone "${COUCHAPP_GIT}" "${COUCHAPP_LOCAL_PATH}"
 
 cd "${COUCHAPP_LOCAL_PATH}"
 
 npm install
 
+cp /app/setup/couchdb.ini /etc/couchdb/local.ini
 
-https://github.com/npm/npm-registry-couchapp/archive/v2.4.0.tar.gz
+cat > /etc/supervisor/conf.d/couchdb.conf <<EOF
+[program:couchdb]
+priority=20
+directory=/tmp
+command=/usr/bin/couchdb
+user=root
+autostart=false
+autorestart=true
+stdout_logfile=/var/log/supervisor/%(program_name)s.log
+stderr_logfile=/var/log/supervisor/%(program_name)s.log
+EOF

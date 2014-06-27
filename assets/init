@@ -2,6 +2,45 @@
 
 set -e
 
+COUCHAPP_LOCAL_PATH=/opt/couchapp
+LOGIN=admin
+PASSWORD=password
+CREDENTIALS="${LOGIN}:${PASSWORD}"
+HOSTNAME=localhost
+PORT=5984
+HOST="${HOSTNAME}:${PORT}"
+REGISTRY_URL="http://${CREDENTIALS}@${HOST}/registry"
+REGISTRY_SETTING="--npm-registry-couchapp:couch=${REGISTRY_URL}"
+
+# do not prompt coping ddoc from scratch to app
+export NO_PROMPT=true
+
+appStart () {
+
+  # create dir for couchdb's pid
+  mkdir /var/run/couchdb
+
+  /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+
+  echo "Starting couchdb server..."
+  supervisorctl start couchdb >/dev/null
+
+  # create database
+  curl -X PUT http://${HOST}/registry
+
+  # create admin user
+  curl -X PUT http://${HOST}/_config/admins/${LOGIN} -d '"'"${PASSWORD}"'"'
+
+  # install couchapp
+  cd "${COUCHAPP_LOCAL_PATH}"
+
+  npm start "${REGISTRY_SETTING}"
+  npm run load "${REGISTRY_SETTING}"
+  npm run copy "${REGISTRY_SETTING}"
+
+  # watch logs
+  tail -F /var/log/couchdb/couch.log
+}
 
 appHelp () {
   echo "Available options:"
