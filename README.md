@@ -27,7 +27,7 @@ Alternately you can build the image yourself.
 ```bash
 git clone https://github.com/burkostya/npm-registry.git
 cd npm-registry
-docker build -t '<user>/gitlab' .
+docker build -t '<user>/npm-registry' .
 ```
 
 # Quick Start
