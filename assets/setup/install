@@ -9,7 +9,7 @@ COUCHAPP_LOCAL_PATH=/opt/couchapp
 git clone "${COUCHAPP_GIT}" "${COUCHAPP_LOCAL_PATH}"
 
 cd "${COUCHAPP_LOCAL_PATH}"
-
+git checkout "${COUCHAPP_VERSION}"
 npm install
 
 cp /app/setup/couchdb.ini /etc/couchdb/local.ini
