@@ -1,0 +1,19 @@
+{
+  "servers": [{
+    "host": "0.0.0.0",
+    "port": 80,
+    "options": {
+      "payload": {
+        "maxBytes": 1000000
+      }
+    }
+  }],
+  "plugins": {
+    "kappa": {
+      "paths": [
+        "http://localhost:5984/registry/_design/app/_rewrite/",
+        "https://registry.npmjs.org/"
+      ]
+    }
+  }
+}

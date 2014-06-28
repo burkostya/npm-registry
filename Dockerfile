@@ -22,7 +22,7 @@ ADD assets/init /app/init
 RUN chmod 755 /app/init
 
 EXPOSE 5984
-# EXPOSE 80
+EXPOSE 80
 
 # VOLUME ["/var/lib/couchdb"]
 

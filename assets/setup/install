@@ -6,11 +6,21 @@ COUCHAPP_VERSION=v2.4.0
 COUCHAPP_GIT=https://github.com/npm/npm-registry-couchapp.git
 COUCHAPP_LOCAL_PATH=/opt/couchapp
 
-git clone "${COUCHAPP_GIT}" "${COUCHAPP_LOCAL_PATH}"
+KAPPA_VERSION=v0.14.3
+KAPPA_GIT=https://github.com/krakenjs/kappa.git
+KAPPA_LOCAL_PATH=/opt/kappa
 
+#install couchapp
+git clone "${COUCHAPP_GIT}" "${COUCHAPP_LOCAL_PATH}"
 cd "${COUCHAPP_LOCAL_PATH}"
 git checkout "${COUCHAPP_VERSION}"
 npm install
+
+#install kappa
+git clone "${KAPPA_GIT}" "${KAPPA_LOCAL_PATH}"
+cd "${KAPPA_LOCAL_PATH}"
+git checkout "${KAPPA_VERSION}"
+npm install -g .
 
 cp /app/setup/couchdb.ini /etc/couchdb/local.ini
 

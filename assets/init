@@ -3,6 +3,8 @@
 set -e
 
 COUCHAPP_LOCAL_PATH=/opt/couchapp
+KAPPA_LOCAL_PATH=/opt/kappa
+
 LOGIN=admin
 PASSWORD=password
 CREDENTIALS="${LOGIN}:${PASSWORD}"
@@ -38,8 +40,7 @@ appStart () {
   npm run load "${REGISTRY_SETTING}"
   npm run copy "${REGISTRY_SETTING}"
 
-  # watch logs
-  tail -F /var/log/couchdb/couch.log
+  kappa -c /app/setup/kappa.json
 }
 
 appHelp () {
