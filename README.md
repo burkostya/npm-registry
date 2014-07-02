@@ -87,8 +87,41 @@ mkdir /opt/data/npm-registry
 docker run --name='npm-registry' -d \
   -p 5984:5984 -p 80:80 \
   -v /opt/data/npm-registry:/var/lib/couchdb \
-  burkostya/npm-registry:2.4.0-0
+  burkostya/npm-registry:2.4.2
 
+```
+
+# Upgrading
+
+To upgrade to newer couchapp, follow this steps:
+
+- Update the docker image.
+
+```bash
+docker pull burkostya/npm-registry:2.4.2
+```
+
+- Stop the currently running image
+
+```bash
+docker stop npm-registry
+```
+
+- Backup the application data just by coping content of mounted volume
+
+```bash
+cp -r /opt/data/npm-registry /some/npm/backup/dir/
+```
+
+- Start the image
+
+```bash
+docker run --name='npm-registry' -d \
+  -e 'COUCHDB_ADMIN_LOGIN=<login>' \
+  -e 'COUCHDB_ADMIN_PASSWORD=<password>' \
+  -p 5984:5984 -p 80:80 \
+  -v /opt/data/npm-registry:/var/lib/couchdb \
+  burkostya/npm-registry:2.4.2
 ```
 
 # Thanks
