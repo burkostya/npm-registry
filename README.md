@@ -29,7 +29,6 @@ Alternately you can build the image yourself.
 ```bash
 git clone https://github.com/burkostya/npm-registry.git
 cd npm-registry
-git checkout kappa
 docker build -t '<user>/npm-registry' .
 ```
 
