@@ -48,6 +48,16 @@ Credentials:
 * username: admin
 * password: password
 
+You can set your login and password for couchdb admin:
+
+```bash
+docker run --name='npm-registry' -i -t --rm \
+  -e 'COUCHDB_ADMIN_LOGIN=<login>' \
+  -e 'COUCHDB_ADMIN_PASSWORD=<password>' \
+  -p 5984:5984 -p 80:80 \
+  burkostya/npm-registry:2.4.2
+```
+
 Kappa is exposed on port 80. You can use it by setting option in .npmrc:
 
 ```bash
