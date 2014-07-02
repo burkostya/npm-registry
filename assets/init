@@ -53,7 +53,6 @@ appStart () {
 appHelp () {
   echo "Available options:"
   echo "  app:start          - Starts the npm registry (default)"
-  echo "  app:migrate        - Update couchapp"
   echo "  app:help           - Displays the help"
   echo "  [command]          - Execute the specified linux command eg. bash"
 }
@@ -61,9 +60,6 @@ appHelp () {
 case "$1" in
   app:start)
     appStart
-    ;;
-  app:migrate)
-    appMigrate
     ;;
   app:help)
     appHelp
