@@ -36,14 +36,16 @@ appStart () {
   fi
 
   # create admin user
-  curl -X PUT http://${HOST}/_config/admins/${LOGIN} -d '"'"${PASSWORD}"'"'
+  curl -X PUT -s -S http://${HOST}/_config/admins/${LOGIN} -d '"'"${PASSWORD}"'"'
 
   # install couchapp
   cd "${COUCHAPP_LOCAL_PATH}"
 
-  npm start "${REGISTRY_SETTING}"
-  npm run load "${REGISTRY_SETTING}"
-  npm run copy "${REGISTRY_SETTING}"
+  npm start "${REGISTRY_SETTING}" >/dev/null
+  npm run load "${REGISTRY_SETTING}" >/dev/null
+  npm run copy "${REGISTRY_SETTING}" >/dev/null
+
+  echo "Couchapp installed"
 
   kappa -c /app/setup/kappa.json
 }
