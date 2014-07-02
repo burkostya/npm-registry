@@ -5,13 +5,14 @@
 - [Quick Start](#quick-start)
 - [Configuration](#configuration)
     - [Data Store](#data-store)
+- [Upgrading](#upgrading)
 - [Thanks](#thanks)
 
 # Introduction
 Dockerfile to build image with npm registry proxied with kappa.
 
 ## Version
-Current Version: 2.4.0-0
+Current Version: 2.4.2
 
 # Installation
 
@@ -21,7 +22,7 @@ in the future.
 These builds are performed by the **Docker Trusted Build** service.
 
 ```bash
-docker pull burkostya/npm-registry:2.4.0-0
+docker pull burkostya/npm-registry:2.4.2
 ```
 
 Alternately you can build the image yourself.
@@ -35,10 +36,10 @@ docker build -t '<user>/npm-registry' .
 # Quick Start
 Run container
 
-```
+```bash
 docker run --name='npm-registry' -i -t --rm \
   -p 5984:5984 -p 80:80 \
-  burkostya/npm-registry:2.4.0-0
+  burkostya/npm-registry:2.4.2
 ```
 
 Couchdb with installed couchapp now available on http://localhost:5984.
