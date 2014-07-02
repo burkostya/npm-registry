@@ -28,7 +28,12 @@ appStart () {
   supervisorctl start couchdb >/dev/null
 
   # create database
-  curl -X PUT http://${HOST}/registry
+  local db_response="$(curl -X PUT -s -S http://${HOST}/registry)"
+  if [ "${db_response}" = '{"ok":true}' ]; then
+    echo "Database 'registry' created"
+  else
+    echo "Database 'registry' already exists"
+  fi
 
   # create admin user
   curl -X PUT http://${HOST}/_config/admins/${LOGIN} -d '"'"${PASSWORD}"'"'
