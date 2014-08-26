@@ -1,13 +1,11 @@
-# DOCKER-VERSION 1.0.1
-# VERSION        2014-06-27
-# AUTHOR         Konstantin Burykin <burkostya@gmail.com>
+# DOCKER-VERSION 1.2.0
 # DESCRIPTION    npm registry
 # TO_BUILD       docker build -t 'npm-registry' .
-# TO_RUN         docker run -p 5984:5984 npm-registry
+# TO_RUN         docker run -p 5984:5984 -p 80:80 npm-registry
 
 FROM sameersbn/ubuntu:14.04.20140628
 
-MAINTAINER burkostya@gmail.com
+MAINTAINER Konstantin Burykin <burkostya@gmail.com>
 
 RUN apt-get install -y python-software-properties && \
         add-apt-repository -y ppa:chris-lea/node.js && \
