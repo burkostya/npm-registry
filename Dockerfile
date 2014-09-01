@@ -3,14 +3,9 @@
 # TO_BUILD       docker build -t 'npm-registry' .
 # TO_RUN         docker run -p 5984:5984 -p 80:80 npm-registry
 
-FROM sameersbn/ubuntu:14.04.20140628
+FROM ubuntu:14.04
 
 MAINTAINER Konstantin Burykin <burkostya@gmail.com>
-
-RUN apt-get install -y python-software-properties && \
-        add-apt-repository -y ppa:chris-lea/node.js && \
-        apt-get -y update && \
-        apt-get install -y dnsutils curl git nodejs couchdb
 
 ADD assets/setup /app/setup
 RUN chmod 755 /app/setup/install

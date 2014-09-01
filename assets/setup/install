@@ -10,6 +10,19 @@ KAPPA_VERSION=v0.14.3
 KAPPA_GIT=https://github.com/krakenjs/kappa.git
 KAPPA_LOCAL_PATH=/opt/kappa
 
+# adding signing key
+apt-get update
+apt-get -y install curl apt-transport-https
+curl -s https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
+
+# adding source
+echo 'deb https://deb.nodesource.com/node trusty main' \
+  > /etc/apt/sources.list.d/nodejs.list
+
+# installing rest software
+apt-get update
+apt-get install -y dnsutils git nodejs couchdb supervisor
+
 #install couchapp
 git clone "${COUCHAPP_GIT}" "${COUCHAPP_LOCAL_PATH}"
 cd "${COUCHAPP_LOCAL_PATH}"
@@ -25,13 +38,12 @@ npm install -g .
 cp /app/setup/couchdb.ini /etc/couchdb/local.ini
 
 cat > /etc/supervisor/conf.d/couchdb.conf <<EOF
+
 [program:couchdb]
-priority=20
-directory=/tmp
 command=/usr/bin/couchdb
 user=root
 autostart=false
 autorestart=true
 stdout_logfile=/var/log/supervisor/%(program_name)s.log
-stderr_logfile=/var/log/supervisor/%(program_name)s.log
+stdout_logfile=/var/log/supervisor/%(program_name)s_error.log
 EOF
