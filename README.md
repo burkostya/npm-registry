@@ -12,7 +12,7 @@
 Dockerfile to build image with npm registry proxied with kappa.
 
 ## Version
-Current Version: 2.4.2
+Current Version: 2.5.0
 
 # Installation
 
@@ -22,7 +22,7 @@ in the future.
 These builds are performed by the **Docker Trusted Build** service.
 
 ```bash
-docker pull burkostya/npm-registry:2.4.2
+docker pull burkostya/npm-registry:2.5.0
 ```
 
 Alternately you can build the image yourself.
@@ -39,7 +39,7 @@ Run container
 ```bash
 docker run --name='npm-registry' -i -t --rm \
   -p 5984:5984 -p 80:80 \
-  burkostya/npm-registry:2.4.2
+  burkostya/npm-registry:2.5.0
 ```
 
 Couchdb with installed couchapp now available on http://localhost:5984.
@@ -56,7 +56,7 @@ docker run --name='npm-registry' -i -t --rm \
   -e 'COUCHDB_ADMIN_LOGIN=<login>' \
   -e 'COUCHDB_ADMIN_PASSWORD=<password>' \
   -p 5984:5984 -p 80:80 \
-  burkostya/npm-registry:2.4.2
+  burkostya/npm-registry:2.5.0
 ```
 
 Kappa is exposed on port 80. You can use it by setting option in .npmrc:
@@ -88,7 +88,7 @@ mkdir /opt/data/npm-registry
 docker run --name='npm-registry' -d \
   -p 5984:5984 -p 80:80 \
   -v /opt/data/npm-registry:/var/lib/couchdb \
-  burkostya/npm-registry:2.4.2
+  burkostya/npm-registry:2.5.0
 
 ```
 
@@ -99,13 +99,14 @@ To upgrade to newer couchapp, follow this steps:
 - Update the docker image.
 
 ```bash
-docker pull burkostya/npm-registry:2.4.2
+docker pull burkostya/npm-registry:2.5.0
 ```
 
 - Stop the currently running image
 
 ```bash
 docker stop npm-registry
+docker rm npm-registry
 ```
 
 - Backup the application data just by coping content of mounted volume
@@ -117,12 +118,12 @@ cp -r /opt/data/npm-registry /some/npm/backup/dir/
 - Start the image
 
 ```bash
-docker run --name='npm-registry' -d \
+docker run --name npm-registry -d \
   -e 'COUCHDB_ADMIN_LOGIN=<login>' \
   -e 'COUCHDB_ADMIN_PASSWORD=<password>' \
   -p 5984:5984 -p 80:80 \
   -v /opt/data/npm-registry:/var/lib/couchdb \
-  burkostya/npm-registry:2.4.2
+  burkostya/npm-registry:2.5.0
 ```
 
 # Thanks
