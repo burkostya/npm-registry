@@ -2,7 +2,7 @@
 
 set -e
 
-COUCHAPP_VERSION=v2.5.0
+COUCHAPP_VERSION=v2.5.2
 COUCHAPP_GIT=https://github.com/npm/npm-registry-couchapp.git
 COUCHAPP_LOCAL_PATH=/opt/couchapp
 
