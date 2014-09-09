@@ -27,6 +27,18 @@ appStart () {
   echo "Starting couchdb server..."
   supervisorctl start couchdb >/dev/null
 
+  echo "Waiting for couchdb..."
+  local timeout=20
+  while ! curl -X GET http://localhost:5984/ >/dev/null
+  do
+    timeout=$(expr $timeout - 1)
+    if [ $timeout -eq 0 ]; then
+      echo "Failed to start couchdb"
+      exit 1
+    fi
+    sleep 1
+  done
+
   # create database
   local db_response="$(curl -X PUT -s -S http://${HOST}/registry)"
   if [ "${db_response}" = '{"ok":true}' ]; then
