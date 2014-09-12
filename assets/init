@@ -19,9 +19,6 @@ export NO_PROMPT=true
 
 appStart () {
 
-  # create dir for couchdb's pid
-  mkdir /var/run/couchdb
-
   /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 
   echo "Starting couchdb server..."

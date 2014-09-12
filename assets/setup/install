@@ -47,3 +47,6 @@ autorestart=true
 stdout_logfile=/var/log/supervisor/%(program_name)s.log
 stdout_logfile=/var/log/supervisor/%(program_name)s_error.log
 EOF
+
+# create dir for couchdb's pid
+mkdir /var/run/couchdb
