@@ -1,3 +1,9 @@
+# Notice
+
+Please read deprecation notice in official repository https://github.com/npm/npm-registry-couchapp
+
+And if you know actively developing fork give me to know.
+
 # Contents
 - [Introduction](#introduction)
     - [Version](#version)
